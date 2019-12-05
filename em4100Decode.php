@@ -28,7 +28,7 @@ $resI = array();
 ***/
 function reverseOrder($input) 
 {
-    $i = $len = strlen($input);
+    $i = strlen($input);
     $res = array();
     $ri = 0;
     
