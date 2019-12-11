@@ -1,7 +1,10 @@
 <?php 
 require_once 'config.php';
 require_once 'em4100Decode.php';
+// вход :'1001'
+// изход:'1002'
 
+// $stamp = YYYYMMDDHHMMSS
 $fp = fopen(EXIT_PORT, 'r');
 $rfid = '';
 while (true) {
@@ -10,7 +13,29 @@ while (true) {
     if ($ch != '?') {
         $rfid .= $ch;
     } else {
-        echo (decode($rfid) . "\n");
+        $card = decode($rfid);
+        // Изпращаме картата
+        $search = array('{card}','{stamp}');
+        $stamp = date("YmdHis");
+        $replace = array($card, $stamp);
+        
+        $exitUrl = str_replace($search,$replace,EXIT_URL);
+        
+        $res = @file_get_contents($exitUrl);
+        
+        if (FALSE === $res) {
+            // Неработещо УРЛ
+            file_put_contents('debug.log', date("Y-m-d H:i:s") . " " . basename(__FILE__). " " . " - Неработещо УРЛ \n", FILE_APPEND);
+            exit;
+        }
+        if (strpos($res,'inserted')!==FALSE) {
+            // Въведен запис в BGERpa
+            file_put_contents('debug.log', date("Y-m-d H:i:s") . " " . basename(__FILE__). " " ." - $card - $stamp - Въведен запис в BGERpa \n", FILE_APPEND);
+            
+        } else {
+                // Warning
+            file_put_contents('debug.log', date("Y-m-d H:i:s") .  " " . basename(__FILE__). " ". $exitUrl ." - $card - $stamp - Неполучено потвърждение от сървъра \n", FILE_APPEND);
+        }
         $rfid = '';
     }
 }
