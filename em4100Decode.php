@@ -50,7 +50,7 @@ function reverseOrder($input)
 /* return int
 ***/
 function decode($rfid) {
-    
+    $rfid = trim($rfid);
     $resArr = array();
     
     $resArr = reverseOrder($rfid);
@@ -70,16 +70,12 @@ function decode($rfid) {
                         55,56,57,58
                     );
     
-    $data = array();
-    
     foreach ($dataBits as $bit) {
-        $data[$bit64] .= $bit64{$bit-1};
         $dig .= $bit64{$bit-1};
     }
-    $data[$dig] = (int) $dig;
+//     $res = bindec($dig);
+//     $res .= " <_--_> " . bindec(substr($dig, 0, 16)) . str_pad( bindec(substr($dig, 16)), 5, '0', STR_PAD_LEFT);
+    $res = bindec(substr($dig, 0, 16)) . str_pad( bindec(substr($dig, 16)), 5, '0', STR_PAD_LEFT);
     
-    return $data;
+    return $res;
 }
-
-print_r (decode($rfid));
-
