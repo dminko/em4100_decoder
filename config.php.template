@@ -1,0 +1,5 @@
+<?php
+define ('ENTRANCE_PORT', '/dev/ttyUSB0');
+define ('EXIT_PORT', '/dev/ttyUSB1');
+define ('ENTRANCE_URL', 'http://localhost/in');
+define ('EXIT_URL', 'http://localhost/out');
