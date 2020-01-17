@@ -26,7 +26,7 @@ while (true) {
         if (FALSE === $res) {
             // Неработещо УРЛ
             file_put_contents('debug.log', date("Y-m-d H:i:s") . " " . basename(__FILE__). " " . " - Неработещо УРЛ \n", FILE_APPEND);
-            exit;
+            continue;
         }
         if (strpos($res,'inserted')!==FALSE) {
             // Въведен запис в BGERpa
