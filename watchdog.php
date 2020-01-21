@@ -7,10 +7,11 @@ foreach ($output as $res) {
 	}
 }
 if ($cnt < 2) {
+	file_put_contents('debug.log', date("Y-m-d H:i:s") . " - Restart ... \n")
 	exec ('sudo reboot');
 } elseif ($cnt ==2) {
 	// ne restartirame
-	echo ("ne restartirame\n");
+	// echo ("ne restartirame\n");
 }
 
 
