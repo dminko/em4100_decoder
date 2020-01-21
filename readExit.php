@@ -25,7 +25,8 @@ while (true) {
         
         if (FALSE === $res) {
             // Неработещо УРЛ
-            file_put_contents('debug.log', date("Y-m-d H:i:s") . " " . basename(__FILE__). " " . " - Неработещо УРЛ \n", FILE_APPEND);
+            file_put_contents('debug.log', date("Y-m-d H:i:s") . " " . basename(__FILE__). " " . " - {$card} - Неработещо УРЛ \n", FILE_APPEND);
+            file_put_contents('noSended.log', "exit|{$card}|{$stamp}\n", FILE_APPEND);
             continue;
         }
         if (strpos($res,'inserted')!==FALSE) {
@@ -35,6 +36,7 @@ while (true) {
         } else {
                 // Warning
             file_put_contents('debug.log', date("Y-m-d H:i:s") .  " " . basename(__FILE__). " ". $exitUrl ." - $card - $stamp - Неполучено потвърждение от сървъра \n", FILE_APPEND);
+            file_put_contents('noSended.log', "exit|{$card}|{$stamp}\n", FILE_APPEND);
         }
         $rfid = '';
     }
