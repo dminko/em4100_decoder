@@ -39,5 +39,9 @@ while (true) {
             file_put_contents('noSended.log', "exit|{$card}|{$stamp}\n", FILE_APPEND);
         }
         $rfid = '';
+        // рестартираме порта
+        fclose($fp);
+        usleep(100000); // 0.1 sec
+        $fp = fopen(EXIT_PORT, 'r');
     }
 }
