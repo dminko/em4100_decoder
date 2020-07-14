@@ -7,7 +7,7 @@ foreach ($output as $res) {
 	}
 }
 if ($cnt < 2) {
-	file_put_contents('debug.log', date("Y-m-d H:i:s") . " - Restart ... \n")
+	file_put_contents('debug.log', date("Y-m-d H:i:s") . " - Restart ... \n", FILE_APPEND);
 	exec ('sudo reboot');
 } elseif ($cnt ==2) {
 	// ne restartirame
