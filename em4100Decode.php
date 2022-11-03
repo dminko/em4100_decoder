@@ -19,8 +19,9 @@ error_reporting(E_ALL & ~E_NOTICE);
 
 // $rfid[] = "26 16 45 5F 02 60 A4 FF"; //  4695336 или 071,42280
 // $rfid[] = "AE 03 45 5F 02 60 A4 FF"; //  4695310 или 071,42254
-$rfid = "F4 16 2A 25 05 00 98 FF"; // 11115051 или 169,39467
+//$rfid = "F4 16 2A 25 05 00 98 FF"; // 11115051 или 169,39467
 
+$rfid = "2A 51 9C E4 C3 60 80 FF";
 
 /***
 /* return array
@@ -79,3 +80,15 @@ function decode($rfid) {
     
     return $res;
 }
+
+
+function convert55dTo10d($num)
+{
+    $numLast5d = sprintf('%04s', dechex(substr($num, -5)));
+    $numFirst5d = dechex(substr($num, 0, strlen($num) - 5));
+    
+    return hexdec($numFirst5d . $numLast5d);
+}
+
+
+//echo decode($rfid) . "<-------->" . convert55dTo10d(decode($rfid));
